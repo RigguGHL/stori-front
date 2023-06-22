@@ -1,0 +1,50 @@
+<h1> Send Newsletter</h1>
+
+<mat-card class="newsletter-card">
+    <mat-card-content>
+
+        <form class="newsletter-form" [formGroup]="newsForm" (ngSubmit)="onSubmit()">
+
+            <mat-form-field class="newsletter-form-field" appearance="outline">
+                <mat-label>Subject</mat-label>
+                <input matInput placeholder="Email subject" formControlName="subject">
+                <mat-error *ngIf="subject?.invalid">{{getErrorMessage(subject)}}</mat-error>
+            </mat-form-field>
+
+            <div class="newsletter-form-array" *ngFor="let email of emails.controls; let i=index" for="i">
+                <mat-form-field class="newsletter-form-field" appearance="outline" [formGroup]="getEmailByIndex(i)">
+                    <mat-label>Receiver</mat-label>
+                    <input matInput placeholder="pat@example.com" id="i" formControlName="email" required>
+                    <mat-error
+                        *ngIf="email?.invalid">{{getErrorMessage(getEmailByIndex(i).controls['email'])}}</mat-error>
+                </mat-form-field>
+                <button type="button" mat-icon-button mat-flat-button (click)="addRemoveEmail(i)">
+                    <mat-icon> {{i==0?'add':'remove'}} </mat-icon>
+                </button>
+            </div>
+
+            <div class="newsletter-form-file">
+                <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+                <input hidden (change)="onFileSelected($event)" #fileInput type="file" formControlName="file">
+                <span class="newsletter-file-name">{{selectedFile?.name || "Select a PNG or PDF File"}}</span>
+                <mat-error *ngIf="file?.invalid && checkValid">You must choose a PNG or PDF File</mat-error>
+            </div>
+
+            <mat-form-field class="newsletter-form-field" appearance="outline">
+                <mat-label>Message</mat-label>
+                <textarea matInput rows="10" formControlName="message"
+                    placeholder="The content can be written in HTML format"></textarea>
+            </mat-form-field>
+
+            <div class="newsletter-form-submit">
+                <button type="submit" mat-raised-button color="primary" [disabled]="isLoading">Submit</button>
+
+                <mat-progress-spinner class="newsletter-spinner" color="primary" mode="determinate" diameter="35"
+                    [value]="progress" *ngIf="isLoading">
+                </mat-progress-spinner>
+            </div>
+
+        </form>
+
+    </mat-card-content>
+</mat-card>

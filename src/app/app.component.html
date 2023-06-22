@@ -1,0 +1,35 @@
+<div class="app-container" [class.app-is-mobile]="mobileQuery.matches" autosize>
+
+  <!-- Header Toolbar -->
+  <mat-toolbar color="primary" role="heading" class="app-toolbar">
+    <button mat-icon-button class="app-icon" aria-label="Example icon-button with menu icon" (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="app-title">Stori Newsletter</span>
+  </mat-toolbar>
+
+  <!-- Sidenav menu -->
+  <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+
+    <mat-sidenav class="app-sidenav" #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list class="app-sidenav-list" [style.width]="mobileQuery.matches ? '60vw' : '18vw'">
+        <a mat-list-item routerLink="dashboard">
+          <mat-icon>dashboard</mat-icon> <span class="app-title"> Dashboard </span>
+        </a>
+        <a mat-list-item routerLink="newsletter">
+          <mat-icon>mail</mat-icon> <span class="app-title"> Send Newsletter </span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="app-sidenav-content">
+
+      <!-- App router content -->
+      <router-outlet></router-outlet>
+
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+</div>

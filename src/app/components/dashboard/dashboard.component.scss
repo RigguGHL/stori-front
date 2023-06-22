@@ -1,0 +1,28 @@
+.dashboard {
+    &-card {
+        width: 100%;
+        max-height: 80%;
+        margin: 3px;
+
+        &-title {
+            display: flex;
+            align-items: center;
+
+            mat-icon {
+                margin-right: 10px;
+            }
+
+            span {
+                font-size: large;
+            }
+        }
+
+        &-value {
+            margin-left: auto;
+        }
+    }
+
+    &-grid-content {
+        margin: 16px;
+    }
+}
